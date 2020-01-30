@@ -1,0 +1,10 @@
+{
+  "name": "stella",
+  "version": "1.0.0",
+  "description": "URL Shortner API",
+  "main": "index.js",
+  "repository": "git@github.com:PatrickMcGrath29/stella.git",
+  "author": "Patrick McGrath <patrickmcgrath29@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
