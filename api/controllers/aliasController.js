@@ -4,35 +4,48 @@ const mongoose = require('mongoose'),
   crypto = require('crypto'),
   Alias = mongoose.model('Alias');
 
+const notFoundBody = { "errorMessage": notFoundMessage }
+
 exports.create_alias = (req, res) => {
   const new_alias = new Alias(req.body)
   new_alias.secret_id = new_alias.secret_id || crypto.randomBytes(20).toString("hex")
   new_alias.save((err, alias) => {
-    if (err) res.send(err);
+    if (err) return res.send(err);
     res.json(alias);
   });
 };
 
 exports.get_full_url = (req, res) => {
-  Alias.find({ alias: req.params.alias }, (err, alias) => {
-    if (err) res.send(err);
-    res.json(alias);
+  Alias.findOne({ alias: req.params.alias }, (err, alias) => {
+    if (err) return res.send(err);
+    if (!alias) return res.status(404).json(notFoundBody);
+
+    if (req.query.redirect == "true") {
+      res.redirect(alias.full_url)
+    } else {
+      res.json(alias);
+    }
   });
 };
 
 exports.update_alias = (req, res) => {
-  Alias.findOneAndUpdate({ _id: req.params.alias }, req.body, { new: true }, (err, alias) => {
-    if (err) res.send(err);
+  Alias.findOneAndUpdate({
+    alias: req.params.alias,
+    secret_id: req.query.secret_id
+  }, req.body, { new: true }, (err, alias) => {
+    if (err) return res.send(err);
     res.json(alias);
   });
 };
 
 exports.delete_alias = (req, res) => {
-  Alias.remove({
+  Alias.deleteOne({
     alias: req.params.alias,
-    secret_id: req.params.secret_id
+    secret_id: req.query.secret_id
   }, (err, alias) => {
-    if (err) res.send(err);
+    if (err) return res.send(err);
+    if (alias.deletedCount === 0) return res.status(404).json(notFoundBody);
+
     res.json({ message: 'Alias successfully deleted' });
   });
 };
