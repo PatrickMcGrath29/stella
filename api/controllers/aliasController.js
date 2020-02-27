@@ -4,21 +4,27 @@ const mongoose = require('mongoose'),
   crypto = require('crypto'),
   Alias = mongoose.model('Alias');
 
-const notFoundBody = { "errorMessage": "Alias Not Found" }
+const genericError = (res) => res.status(400).json({ "errorMessage": "Invalid Request" })
+const notFoundError = (res) => res.status(404).json({ "errorMessage": "Alias Not Found" })
+const duplicateError = (res) => res.status(400).json({ "errorMessage": "Requested alias is unavailable" })
 
 exports.create_alias = (req, res) => {
   const new_alias = new Alias(req.body)
   new_alias.secret_id = new_alias.secret_id || crypto.randomBytes(20).toString("hex")
+
   new_alias.save((err, alias) => {
-    if (err) return res.send(err);
-    res.json(alias.toJSON({keep: "secret_id"}));
+    if (err) {
+      if (err.code === 11000) return duplicateError(res)
+      return genericError(res)
+    }
+    res.json(alias.toJSON({ keep: "secret_id" }));
   });
 };
 
 exports.get_full_url = (req, res) => {
   Alias.findOne({ alias: req.params.alias }, (err, alias) => {
-    if (err) return res.send(err);
-    if (!alias) return res.status(404).json(notFoundBody);
+    if (err) return genericError(res)
+    if (!alias) return notFoundError(res)
 
     if (req.query.redirect == "true") {
       res.redirect(alias.full_url)
@@ -28,23 +34,13 @@ exports.get_full_url = (req, res) => {
   });
 };
 
-exports.update_alias = (req, res) => {
-  Alias.findOneAndUpdate({
-    alias: req.params.alias,
-    secret_id: req.query.secret_id
-  }, req.body, { new: true }, (err, alias) => {
-    if (err) return res.send(err);
-    res.json(alias);
-  });
-};
-
 exports.delete_alias = (req, res) => {
   Alias.deleteOne({
     alias: req.params.alias,
     secret_id: req.query.secret_id
   }, (err, alias) => {
-    if (err) return res.send(err);
-    if (alias.deletedCount === 0) return res.status(404).json(notFoundBody);
+    if (err) return genericError(res)
+    if (alias.deletedCount === 0) return notFoundError(res)
 
     res.json({ message: 'Alias successfully deleted' });
   });
