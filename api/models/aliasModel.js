@@ -1,5 +1,6 @@
 'use strict';
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+  privatePaths = require('mongoose-private-paths');
 const Schema = mongoose.Schema;
 
 const AliasSchema = new Schema({
@@ -10,10 +11,12 @@ const AliasSchema = new Schema({
   },
   created_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    private: true
   },
   secret_id: {
-    type: String
+    type: String,
+    private: true
   },
   full_url: {
     type: String,
@@ -21,4 +24,5 @@ const AliasSchema = new Schema({
   }
 });
 
+AliasSchema.plugin(privatePaths)
 module.exports = mongoose.model('Alias', AliasSchema);

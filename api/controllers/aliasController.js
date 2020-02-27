@@ -4,14 +4,14 @@ const mongoose = require('mongoose'),
   crypto = require('crypto'),
   Alias = mongoose.model('Alias');
 
-const notFoundBody = { "errorMessage": notFoundMessage }
+const notFoundBody = { "errorMessage": "Alias Not Found" }
 
 exports.create_alias = (req, res) => {
   const new_alias = new Alias(req.body)
   new_alias.secret_id = new_alias.secret_id || crypto.randomBytes(20).toString("hex")
   new_alias.save((err, alias) => {
     if (err) return res.send(err);
-    res.json(alias);
+    res.json(alias.toJSON({keep: "secret_id"}));
   });
 };
 

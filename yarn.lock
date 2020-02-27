@@ -597,6 +597,11 @@ latest-version@^3.0.0:
   dependencies:
     package-json "^4.0.0"
 
+lodash@^4.3.0:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
 lowercase-keys@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
@@ -681,6 +686,13 @@ mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
+
+mongoose-private-paths@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/mongoose-private-paths/-/mongoose-private-paths-0.7.0.tgz#f75ab2f70d7bb25f3b82f1a6a99bff1910348730"
+  integrity sha1-91qy9w17sl87gvGmqZv/GRA0hzA=
+  dependencies:
+    lodash "^4.3.0"
 
 mongoose@^5.8.10:
   version "5.8.10"
