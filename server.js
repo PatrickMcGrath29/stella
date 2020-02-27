@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
@@ -7,7 +8,7 @@ const express = require('express'),
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1:27017/aliases?gssapiServiceName=mongodb');
+mongoose.connect(process.env.CONNECTION_STRING);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
