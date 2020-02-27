@@ -1,8 +1,8 @@
-var express = require('express'),
+const express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
-  Alias = require('./api/models/aliasModel'),
+  Alias = require('./api/models/aliasModel').default,
   bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
@@ -12,10 +12,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/aliases?gssapiServiceName=mongodb');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routes = require('./api/routes/aliasRoutes');
+const routes = require('./api/routes/aliasRoutes');
 routes(app);
 
 app.listen(port);
-
-
-console.log('todo list RESTful API server started on: ' + port);

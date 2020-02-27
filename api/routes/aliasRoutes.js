@@ -1,6 +1,6 @@
 'use strict';
-module.exports = function (app) {
-  var alias = require('../controllers/aliasController');
+module.exports = (app) => {
+  const alias = require('../controllers/aliasController');
 
   app.route('/')
     .post(alias.create_alias);

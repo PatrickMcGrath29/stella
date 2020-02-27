@@ -9,8 +9,9 @@
   "repository": "git@github.com:PatrickMcGrath29/stella.git",
   "author": "Patrick McGrath <patrickmcgrath29@gmail.com>",
   "license": "MIT",
-"private": false,
+  "private": false,
   "dependencies": {
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.8.10"
   },

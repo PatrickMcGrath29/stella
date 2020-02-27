@@ -1,8 +1,8 @@
 'use strict';
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var AliasSchema = new Schema({
+const AliasSchema = new Schema({
   alias: {
     type: String,
     required: 'Alias Name Required',
@@ -11,6 +11,9 @@ var AliasSchema = new Schema({
   created_date: {
     type: Date,
     default: Date.now
+  },
+  secret_id: {
+    type: String
   },
   full_url: {
     type: String,
