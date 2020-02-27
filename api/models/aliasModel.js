@@ -5,9 +5,10 @@ var Schema = mongoose.Schema;
 var AliasSchema = new Schema({
   alias: {
     type: String,
-    required: 'Alias Name Required'
+    required: 'Alias Name Required',
+    unique: true
   },
-  Created_date: {
+  created_date: {
     type: Date,
     default: Date.now
   },
