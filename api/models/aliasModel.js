@@ -1,4 +1,5 @@
 'use strict';
+require("mongoose-type-url")
 const mongoose = require('mongoose'),
   privatePaths = require('mongoose-private-paths');
 const Schema = mongoose.Schema;
@@ -19,7 +20,7 @@ const AliasSchema = new Schema({
     private: true
   },
   full_url: {
-    type: String,
+    type: mongoose.SchemaTypes.Url,
     required: 'Full URL Required'
   }
 });
