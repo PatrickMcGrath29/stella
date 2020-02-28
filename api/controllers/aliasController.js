@@ -14,8 +14,6 @@ exports.create_alias = (req, res) => {
   new_alias.secret_id = new_alias.secret_id || crypto.randomBytes(20).toString("hex")
 
   new_alias.save((err, alias) => {
-    console.log("---")
-    console.log(err)
     if (err) {
       if (err.code === 11000) return duplicateError(res)
       if (err.name === "ValidationError") return validationError(res, err)
