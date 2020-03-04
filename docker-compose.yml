@@ -9,8 +9,6 @@ services:
     container_name: nodejs
     env_file:
       - .env
-    ports:
-      - "6000:8080"
     restart: unless-stopped
     networks:
       - app-network
