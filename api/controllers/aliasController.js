@@ -28,10 +28,10 @@ exports.get_full_url = (req, res) => {
     if (err) return genericError(res)
     if (!alias) return notFoundError(res)
 
-    if (req.query.redirect == "true") {
-      res.redirect(alias.full_url)
-    } else {
+    if (req.query.data == "true") {
       res.json(alias);
+    } else {
+      res.redirect(alias.full_url)
     }
   });
 };
