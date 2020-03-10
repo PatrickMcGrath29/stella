@@ -22,10 +22,10 @@ services:
       - "443:443"
     volumes:
       - web-root:/var/www/html
-      - ./nginx-conf:/etc/nginx/conf.d
+      - webserver/nginx-conf:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - dhparam:/etc/ssl/certs
+      - websever/dhparam:/etc/ssl/certs
     depends_on:
       - nodejs
     networks:
@@ -55,7 +55,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/patrickmcgrath/stella/dhparam/
+      device: /home/patrickmcgrath/stella/webserver/dhparam/
       o: bind
 
 networks:
