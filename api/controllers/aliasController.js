@@ -5,9 +5,9 @@ const mongoose = require('mongoose'),
   Alias = mongoose.model('Alias');
 
 const genericError = (res) => res.status(400).json({ "errorMessage": "Invalid Request" })
-const notFoundError = (res) => res.status(404).json({ "errorMessage": "Alias Not Found" })
-const duplicateError = (res) => res.status(400).json({ "errorMessage": "Requested alias is unavailable" })
-const validationError = (res, err) => res.status(400).json({ "errorMessage": err._message })
+const notFoundError = (res) => res.json({ "errorMessage": "Alias Not Found" })
+const duplicateError = (res) => res.json({ "errorMessage": "Requested alias is unavailable" })
+const validationError = (res, err) => res.json({ "errorMessage": err._message })
 
 exports.create_alias = (req, res) => {
   const new_alias = new Alias(req.body)
@@ -28,10 +28,10 @@ exports.get_full_url = (req, res) => {
     if (err) return genericError(res)
     if (!alias) return notFoundError(res)
 
-    if (req.query.data == "true") {
-      res.json(alias);
-    } else {
+    if (req.query.redirect == "true") {
       res.redirect(alias.full_url)
+    } else {
+      res.json(alias);
     }
   });
 };
