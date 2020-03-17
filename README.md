@@ -4,7 +4,7 @@
 
 NodeJS Application Setup
 1. Run `bin/setup.sh` setup script
-2. Create new environment variable file, `cp .env.sample .env`, and modify accordingly
+2. Create a new environment variable file, `cp .env.sample .env`, and modify accordingly
 
 If using optional Nginx webserver & LetsEncrypt certificates
 - Modify absolute paths to working directory in docker-compose.yml (device field in volume section)
