@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    ports:
+      - "3000:8080"
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    container_name: nodejs
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  node_modules:
