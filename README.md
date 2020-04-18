@@ -19,3 +19,6 @@ NodeJS Standalone
 NodeJS with Nginx webserver & LetsEncrypt certificates
 - Start application with new certificates (first execution, manual renewal : `docker-compose up -d`
 - Start application with existing certificates (subsequent executions with valid existing certificate) : `docker-compose up -d nodejs webserver`
+
+## Architecture
+![Architecture Diagram](architecture-diagram.png)
